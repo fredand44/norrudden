@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app version="3.0"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         metadata-complete="false">
+         
+    <servlet>
+        <servlet-name>RssFeedServlet</servlet-name>
+        <servlet-class>se.norrudden.site.servlet.RssFeedServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>RssFeedServlet</servlet-name>
+        <url-pattern>/norrudden.xml</url-pattern>
+    </servlet-mapping>
+    
+    
+    <servlet>
+        <servlet-name>ImageServlet</servlet-name>
+        <servlet-class>se.norrudden.site.servlet.ImageServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ImageServlet</servlet-name>
+        <url-pattern>/imageservlet</url-pattern>
+    </servlet-mapping>
+    
+    
+    <servlet>
+        <servlet-name>ThumbServlet</servlet-name>
+        <servlet-class>se.norrudden.site.servlet.ThumbServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ThumbServlet</servlet-name>
+        <url-pattern>/thumbservlet</url-pattern>
+    </servlet-mapping>
+    
+    
+    <servlet>
+        <servlet-name>DocumentServlet</servlet-name>
+        <servlet-class>se.norrudden.site.servlet.DocumentServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>DocumentServlet</servlet-name>
+        <url-pattern>/documentservlet</url-pattern>
+    </servlet-mapping>
+    
+    
+    
+    
+    
+    
+    
+    <servlet>
+        <servlet-name>PdfDocumentServlet</servlet-name>
+        <servlet-class>se.norrudden.site.servlet.PdfDocumentServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>PdfDocumentServlet</servlet-name>
+        <url-pattern>/pdfdocumentservlet</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>WordDocumentServlet</servlet-name>
+        <servlet-class>se.norrudden.site.servlet.WordDocumentServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>WordDocumentServlet</servlet-name>
+        <url-pattern>/worddocumentservlet</url-pattern>
+    </servlet-mapping>
+    
+    
+
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+         
+</web-app>
+

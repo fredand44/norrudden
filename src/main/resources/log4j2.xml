@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="TRACE">
+  <Appenders>
+    
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    </Console>
+    
+   	<JDBC name="databaseAppender" tableName="jbossas.Logs">
+      <ConnectionFactory class="se.norrudden.site.log.ConnectionFactory" method="getDatabaseConnection" />
+      <Column name="dated" isEventTimestamp="true" isUnicode="false"/>
+      <Column name="level" pattern="%level" isUnicode="false"/>
+      <Column name="logger" pattern="%logger" isUnicode="false"/>
+      <Column name="message" pattern="%message" isUnicode="false"/>
+      <Column name="exception" pattern="%ex{full}" isUnicode="false"/>
+    </JDBC>
+    
+    
+  </Appenders>
+  <Loggers>
+    <Root level="info">
+      <AppenderRef ref="databaseAppender"/>
+    </Root>
+  </Loggers>
+</Configuration>

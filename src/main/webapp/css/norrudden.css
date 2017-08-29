@@ -1,0 +1,45 @@
+.rounded_red_box {
+	border: 2px solid #FF0000;
+	background: #ffffff;
+	width: 800px;
+	height: 600px;
+	border-radius: 27px;
+	box-shadow: 5px 5px 5px #888888;    
+}
+
+.rounded_red_small_box {
+	border: 2px solid #FF0000;
+	background: #ffffff;
+	width: 360px;
+	height: 200px;
+	border-radius: 5px;
+	box-shadow: 2px 2px 2px #888888;    
+}
+
+.rounded_gray_small_box {
+	border: 2px solid #999999;
+	background: #ffffff;
+	width: 740px;
+	border-radius: 5px;
+	box-shadow: 2px 2px 2px #888888;    
+}
+
+.table_senaste_nytt {
+	border-spacing: 8px 2px;
+	width: 100%;
+	border: 0;
+}
+
+.font_verdana_12_black {
+	font-family: Verdana;
+	font-size: 12px;
+	color: #000000; 
+}
+
+.font_verdana_10_black_underline {
+	font-family: Verdana;
+	font-size: 10px;
+	color: #000000;
+	text-decoration: underline; 
+}
+
