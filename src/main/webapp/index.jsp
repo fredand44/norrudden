@@ -17,6 +17,7 @@ String message = "";
 
 try
 {
+	int test = 10;
 	String[] parameterNames = {};
 	Object[] parameterValues = {};
 	String queryString = "SELECT f FROM Feed f WHERE f.id IN (SELECT MAX(f2.id) FROM Feed f2)";
@@ -110,7 +111,7 @@ catch(Exception e)
 								<table>
 									<tr>
 										<td width="80%">
-											<img style="border: 0;" src="images/old_messages.png" alt="Äldre meddelanden" />
+											<img style="border: 0;" src="images/old_messages.png" alt="ï¿½ldre meddelanden" />
 										</td>
 										<td width="20%" align="right">
 											<img style="border: 0;" src="images/images.png" alt="Bilder" />
