@@ -25,7 +25,7 @@ public class ConnectionFactory {
  
         GenericObjectPool pool = new GenericObjectPool();
         DriverManagerConnectionFactory connectionFactory = new DriverManagerConnectionFactory(
-                "jdbc:mysql://127.5.23.2:3306/jbossas", properties
+                "jdbc:mysql://mysql:3306/jbossas", properties
         );
         new PoolableConnectionFactory(
                 connectionFactory, pool, null, "SELECT 1", 3, false, false, Connection.TRANSACTION_READ_COMMITTED
