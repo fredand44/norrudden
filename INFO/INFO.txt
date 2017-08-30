@@ -87,14 +87,17 @@ GRANT ALL PRIVILEGES ON * . * TO adminHgaza73@localhost;
 	Gå till openshift overview>norrudenweb (#nytt nummer) >Logs
 
 9) Lägg till hibernate_sequence
-CREATE TABLE hibernate_sequence (next_val INT NOT NULL);
-INSERT INTO hibernate_sequence VALUES (200);
-UPDATE hibernate_sequence SET next_val=LAST_INSERT_ID(next_val+1);
-SELECT LAST_INSERT_ID();
+	CREATE TABLE hibernate_sequence (next_val INT NOT NULL);
+	INSERT INTO hibernate_sequence VALUES (200);
+	UPDATE hibernate_sequence SET next_val=LAST_INSERT_ID(next_val+1);
+	SELECT LAST_INSERT_ID();
 
-DROP TABLE hibernate_sequence;
+	DROP TABLE hibernate_sequence;
 
-
+10) Byta mail för contact (norrudden.vagforening@gmail.com):
+update SystemParameters set value='fredand44@hotmail.com' where id = 1;
+update SystemParameters set value='norrudden.vagforening@gmail.com' where id = 1;
+	
 
 
 
