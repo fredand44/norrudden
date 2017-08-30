@@ -12,6 +12,8 @@
 		<maven.compiler.target>1.6</maven.compiler.target>
 	</properties>
 	<dependencies>
+	
+			
 		<dependency>
 			<groupId>org.jboss.spec</groupId>
 			<artifactId>jboss-javaee-6.0</artifactId>
@@ -19,7 +21,7 @@
 			<type>pom</type>
 			<scope>provided</scope>
 		</dependency>
-
+	
 
 		<!-- MySql -->
 		<dependency>
@@ -32,7 +34,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
-			<version>3.3.2.GA</version>
+			<version>5.2.10.Final</version>
 		</dependency>
 
 		<!-- Fileupload -->
