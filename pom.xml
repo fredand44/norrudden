@@ -8,12 +8,14 @@
 	<name>jbossas</name> 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!-- 
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
+		 -->
 	</properties>
 	<dependencies>
 	
-			
+		
 		<dependency>
 			<groupId>org.jboss.spec</groupId>
 			<artifactId>jboss-javaee-6.0</artifactId>
@@ -21,13 +23,13 @@
 			<type>pom</type>
 			<scope>provided</scope>
 		</dependency>
-		 
+	<!-- 
 		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>javax.mail-api</artifactId>
 			<version>1.6.0</version>
 		</dependency>
-		
+		-->
 		<dependency>
 		    <groupId>com.sun.mail</groupId>
 		    <artifactId>mailapi</artifactId>
