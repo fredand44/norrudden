@@ -9,7 +9,7 @@
 	<meta http-equiv="Content-Style-Type" content="text/css" />
 	<script type="text/javascript" src="js/norrudden.js"></script>
 	<link rel="stylesheet" href="css/norrudden.css" type="text/css" media="screen" />
-	<title>Norruddens vägförening - welcome</title>
+	<title>Norruddens vägförening - welcome+</title>
 	
 </head>
 	<body>
