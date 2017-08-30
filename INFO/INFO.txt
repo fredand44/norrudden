@@ -35,7 +35,10 @@
 	oc rsync /home/fredrik/Projects/jbossas/databasedumps mysql-1-v8556:/var/lib/mysql/data
 	oc rsh mysql-1-v8556
 	cd /var/lib/mysql/data/databasedumps
-	mysql -u root
+
+mysql -u root  -h 127.0.0.1 -P 3306 -p
+mysql -u root
+
 	source all.sql
 	use jbossas;
 	exit;
@@ -47,6 +50,7 @@ GRANT ALL ON jbossas TO adminHgaza73@localhost IDENTIFIED BY PASSWORD 'PSy9ze4ws
 GRANT ALL ON jbossas TO adminHgaza73@localhost IDENTIFIED BY PASSWORD 'PSy9ze4wsIee';
 GRANT ALL ON jbossas TO adminHgaza73@localhost IDENTIFIED BY PASSWORD '*DE71F24CC0644F3172DE47A1E53B5536B4945E2A';
 mysql -u adminHgaza73 -p PSy9ze4wsIee
+GRANT ALL PRIVILEGES ON * . * TO adminHgaza73@localhost;
 
 
 
@@ -77,12 +81,18 @@ mysql -u adminHgaza73 -p PSy9ze4wsIee
 		user: fredand44
 		lösenord (lilla bilen)
 	Kolla gärna på github att ändringen kom in
-	Gå till openshift overview>norrudenweb välj scale down (ta ned servern)
+	Gå till openshift overview>norrudenweb (#nuvarande nummer) välj scale down (ta ned servern)
 	Gå till openshift Builds>Builds>norruddenweb>Start build 
-	Gå till openshift overview>norrudenweb välj scale up (ta upp servern)
+	Gå till openshift overview>norrudenweb (#nytt nummer) välj scale up (ta upp servern)
+	Gå till openshift overview>norrudenweb (#nytt nummer) >Logs
 
-	
+9) Lägg till hibernate_sequence
+CREATE TABLE hibernate_sequence (next_val INT NOT NULL);
+INSERT INTO hibernate_sequence VALUES (200);
+UPDATE hibernate_sequence SET next_val=LAST_INSERT_ID(next_val+1);
+SELECT LAST_INSERT_ID();
 
+DROP TABLE hibernate_sequence;
 
 
 
