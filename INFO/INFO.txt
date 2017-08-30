@@ -1,0 +1,295 @@
+
+
+-1) Ladda hem gamla repo
+	git clone ssh://542460ab5004460daf00015b@jbossas-norrudden.rhcloud.com/~/git/jbossas.git/
+
+
+-2) Bygg gamla
+	cd /home/fredrik/Projects/jbossas
+	(Gör en förändring)
+	git add *
+	git commit -m "Ändring"
+	git push
+
+
+-3) Anslut till gamla databasen
+	Database: jbossas User: adminHgaza73 Password: PSy9ze4wsIee
+	rhc port-forward jbossas
+	mysql -u adminHgaza73  -h 127.0.0.1 -P 3306 -p
+	Kolla loggar
+	select * from Logs where dated > SUBDATE(CURDATE(),2);
+ 	SELECT table_schema "DB Name", Round(Sum(data_length + index_length) / 1024 / 1024, 1) "DB Size in MB" FROM information_schema.tables GROUP BY 	   table_schema; 
+
+
+-4) Kopiera databasen
+	rhc ssh jbossas
+	mysqldump --skip-lock-tables -h 127.5.23.2 -P 3306 -u adminHgaza73 --password="PSy9ze4wsIee" --all-databases > ~/app-root/data/all.sql
+	exit
+	rhc scp -a jbossas download databasedumps app-root/data/all.sql
+
+
+-5) Skapa en ny databas och läs in dumpen
+	export PATH=$PATH:/home/fredrik/Applications/openshift-origin-client-tools-v3.6.0-alpha.0-0343989-linux-32bit
+	oc login https://api.starter-us-west-1.openshift.com --token=9UPPusXnYpZKggHCQdVwwqp_iVOGHxddggt9VpflhPQ
+	oc new-app mysql-persistent -p MYSQL_USER=adminHgaza73 -p MYSQL_PASSWORD=PSy9ze4wsIee -p MYSQL_DATABASE=jbossas
+	oc rsync /home/fredrik/Projects/jbossas/databasedumps mysql-1-v8556:/var/lib/mysql/data
+	oc rsh mysql-1-v8556
+	cd /var/lib/mysql/data/databasedumps
+	mysql -u root
+	source all.sql
+	use jbossas;
+	exit;
+	mysql -u adminHgaza73 -p
+	Updatera en tabell gick bra med v2-usern så jag gissar att man inte behöver GRANT:a
+	
+Grant all privileges on <dbname> to <your_v2_username>@localhost, then flush privileges.
+GRANT ALL ON jbossas TO adminHgaza73@localhost IDENTIFIED BY PASSWORD 'PSy9ze4wsIee';
+GRANT ALL ON jbossas TO adminHgaza73@localhost IDENTIFIED BY PASSWORD 'PSy9ze4wsIee';
+GRANT ALL ON jbossas TO adminHgaza73@localhost IDENTIFIED BY PASSWORD '*DE71F24CC0644F3172DE47A1E53B5536B4945E2A';
+mysql -u adminHgaza73 -p PSy9ze4wsIee
+
+
+
+6) Skapa nytt repo på github
+	Skapa repot lokalt
+		git clone https://github.com/fredand44/norrudden.git
+	Kopiera in filerna från gamla repot
+	Adda
+	committa
+	pusha 
+
+
+7) Skapa en ny applikation och läs in kopian
+	cd /home/fredrik/Projects/norrudden_workspace/norrudden
+	export PATH=$PATH:/home/fredrik/Applications/openshift-origin-client-tools-v3.6.0-alpha.0-0343989-linux-32bit
+	oc login https://api.starter-us-west-1.openshift.com
+		Username: fredand44@hotmail.com
+		Password: (lilla bilen)
+	oc project norrudden
+	oc status
+	oc new-app --strategy=source jboss-webserver30-tomcat7-openshift~https://github.com/fredand44/norrudden.git --name=norruddenweb
+
+8) Göra ändringar
+	Ändra fil
+	git add <filen>
+	git commit -m "En kommentar"
+	git push
+		user: fredand44
+		lösenord (lilla bilen)
+	Kolla gärna på github att ändringen kom in
+	Gå till openshift overview>norrudenweb välj scale down (ta ned servern)
+	Gå till openshift Builds>Builds>norruddenweb>Start build 
+	Gå till openshift overview>norrudenweb välj scale up (ta upp servern)
+
+	
+
+
+
+
+
+
+
+--------------------------SLASK------------------------------------
+	git remote add <remote-name> https://github.com/<github-id>/<repo-name>
+	git remote add jbossas https://github.com/28148939/jbossas
+	git remote add origin git@github.com:fredand44/jbossas.git
+	git push -u jbossas master
+
+	https://github.com/<github-id>/<repo-name>
+
+	oc new-app --strategy=source jboss-eap64-openshift~https://github.com/fredand44/jbossas.git
+	oc new-app --strategy=source jboss-webserver30-tomcat7-openshift~https://github.com/fredand44/jbossas.git--name=jbossas
+	 -e <ENV_VAR_NAME>=<env_var_value>
+	oc new-app https://github.com/fredand44/jbossas.git--image-stream=”openshift/wildfly:10.0" --name=jbossas -e
+	 <ENV_VAR_NAME>=<env_var_value>
+
+	ssh://542460ab5004460daf00015b@jbossas-norrudden.rhcloud.com/~/git/jbossas.git/
+	ssh://542460ab5004460daf00015b@jbossas-norrudden.rhcloud.com/~/git/jbossas.git/
+	https://api.github.com/users/jbossas-norrudden.rhcloud.com
+
+	https://github.com/fredand44/jbossas.git
+	git@github.com:fredand44/jbossas.git
+
+	https://github.com/jboss-openshift/openshift-quickstarts.git
+
+
+---------------------------EXCEPTIONS-----------------------------------------
+
+2017/08/26 09:55:13,007 INFO  [org.hibernate.impl.SessionFactoryObjectFactory] (http-127.5.23.1-127.5.23.1-8080-6) Not binding factory to JNDI, no JNDI name c
+onfigured
+2017/08/27 11:10:18,485 WARN  [org.hibernate.util.JDBCExceptionReporter] (http-127.5.23.1-127.5.23.1-8080-2) SQL Error: 0, SQLState: 08S01
+2017/08/27 11:10:18,494 ERROR [org.hibernate.util.JDBCExceptionReporter] (http-127.5.23.1-127.5.23.1-8080-2) Communications link failure due to underlying exc
+eption: 
+** BEGIN NESTED EXCEPTION ** 
+java.net.SocketException
+MESSAGE: Broken pipe (Write failed)
+STACKTRACE:
+java.net.SocketException: Broken pipe (Write failed)
+        at java.net.SocketOutputStream.socketWrite0(Native Method)
+        at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:115)
+        at java.net.SocketOutputStream.write(SocketOutputStream.java:161)
+        at java.io.BufferedOutputStream.flushBuffer(BufferedOutputStream.java:82)
+        at java.io.BufferedOutputStream.flush(BufferedOutputStream.java:140)
+        at com.mysql.jdbc.MysqlIO.send(MysqlIO.java:2637)
+        at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:1554)
+        at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:1665)
+        at com.mysql.jdbc.Connection.execSQL(Connection.java:3176)
+        at com.mysql.jdbc.PreparedStatement.executeInternal(PreparedStatement.java:1153)
+        at com.mysql.jdbc.PreparedStatement.executeQuery(PreparedStatement.java:1266)
+        at org.hibernate.jdbc.AbstractBatcher.getResultSet(AbstractBatcher.java:186)
+        at org.hibernate.loader.Loader.getResultSet(Loader.java:1787)
+        at org.hibernate.loader.Loader.doQuery(Loader.java:674)
+        at org.hibernate.loader.Loader.doQueryAndInitializeNonLazyCollections(Loader.java:236)
+        at org.hibernate.loader.Loader.doList(Loader.java:2213)
+        at org.hibernate.loader.Loader.listIgnoreQueryCache(Loader.java:2104)
+        at org.hibernate.loader.Loader.list(Loader.java:2099)
+        at org.hibernate.loader.hql.QueryLoader.list(QueryLoader.java:378)
+        at org.hibernate.hql.ast.QueryTranslatorImpl.list(QueryTranslatorImpl.java:338)
+        at org.hibernate.engine.query.HQLQueryPlan.performList(HQLQueryPlan.java:172)
+        at org.hibernate.impl.SessionImpl.list(SessionImpl.java:1121)
+        at org.hibernate.impl.QueryImpl.list(QueryImpl.java:79)
+        at se.norrudden.site.hibernate.HibernateUtil.executeQuery(HibernateUtil.java:76)
+        at org.apache.jsp.imagelist_jsp._jspService(imagelist_jsp.java:80)
+        at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+        at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+        at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:369)
+        at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:326)
+        at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:253)
+        at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+        at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:329)
+        at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:248)
+        at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:275)
+        at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:161)
+        at org.jboss.as.web.security.SecurityContextAssociationValve.invoke(SecurityContextAssociationValve.java:153)
+        at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:155)
+		at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+        at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:368)
+        at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:877)
+        at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:671)
+        at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:930)
+        at java.lang.Thread.run(Thread.java:748)
+** END NESTED EXCEPTION **
+Last packet sent to the server was 32 ms ago.
+2017/08/27 11:10:18,510 INFO  [org.hibernate.cfg.Configuration] (http-127.5.23.1-127.5.23.1-8080-2) configuring from resource: /hibernate.cfg.xml
+2017/08/27 11:10:18,511 INFO  [org.hibernate.cfg.Configuration] (http-127.5.23.1-127.5.23.1-8080-2) Configuration resource: /hibernate.cfg.xml
+2017/08/27 11:10:18,723 INFO  [org.hibernate.cfg.Configuration] (http-127.5.23.1-127.5.23.1-8080-2) Configured SessionFactory: null
+2017/08/27 11:10:18,747 INFO  [org.hibernate.cfg.AnnotationBinder] (http-127.5.23.1-127.5.23.1-8080-2) Binding entity from annotated class: se.norrudden.site.model.Feed
+
+
+
+2017/08/27 11:10:19,035 INFO  [org.hibernate.impl.SessionFactoryImpl] (http-127.5.23.1-127.5.23.1-8080-2) building session factory
+2017/08/27 11:10:19,152 INFO  [org.hibernate.impl.SessionFactoryObjectFactory] (http-127.5.23.1-127.5.23.1-8080-2) Not binding factory to JNDI, no JNDI name configured
+2017/08/27 11:22:55,966 ERROR [org.apache.catalina.core.ContainerBase.[jboss.web].[default-host].[/].[jsp]] (http-127.5.23.1-127.5.23.1-8080-2) Servlet.service() for servlet jsp threw exception: java.io.FileNotFoundException: /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.141/jre/lib/jce.jar
+        at sun.misc.URLClassPath$JarLoader.getJarFile(URLClassPath.java:763) [rt.jar:1.7.0_141]
+        at sun.misc.URLClassPath$JarLoader.access$700(URLClassPath.java:626) [rt.jar:1.7.0_141]
+        at sun.misc.URLClassPath$JarLoader$1.run(URLClassPath.java:711) [rt.jar:1.7.0_141]
+        at sun.misc.URLClassPath$JarLoader$1.run(URLClassPath.java:704) [rt.jar:1.7.0_141]
+        at java.security.AccessController.doPrivileged(Native Method) [rt.jar:1.7.0_141]
+        at sun.misc.URLClassPath$JarLoader.ensureOpen(URLClassPath.java:703) [rt.jar:1.7.0_141]
+        at sun.misc.URLClassPath$JarLoader.getResource(URLClassPath.java:873) [rt.jar:1.7.0_141]
+        at sun.misc.URLClassPath.getResource(URLClassPath.java:226) [rt.jar:1.7.0_141]
+        at sun.misc.URLClassPath.getResource(URLClassPath.java:278) [rt.jar:1.7.0_141]
+        at java.lang.ClassLoader.getBootstrapResource(ClassLoader.java:1308) [rt.jar:1.7.0_141]
+        at java.lang.ClassLoader.getResource(ClassLoader.java:1147) [rt.jar:1.7.0_141]
+        at java.lang.ClassLoader.getResource(ClassLoader.java:1145) [rt.jar:1.7.0_141]
+        at java.lang.ClassLoader.getSystemResource(ClassLoader.java:1270) [rt.jar:1.7.0_141]
+        at javax.crypto.JceSecurity.setupJurisdictionPolicies(JceSecurity.java:251)
+        at javax.crypto.JceSecurity.access$000(JceSecurity.java:48)
+        at javax.crypto.JceSecurity$1.run(JceSecurity.java:81)
+        at java.security.AccessController.doPrivileged(Native Method) [rt.jar:1.7.0_141]
+        at javax.crypto.JceSecurity.<clinit>(JceSecurity.java:78)
+        at javax.crypto.KeyAgreement.getInstance(KeyAgreement.java:179)
+        at sun.security.ssl.JsseJce.getKeyAgreement(JsseJce.java:287)
+        at sun.security.ssl.JsseJce.isEcAvailable(JsseJce.java:199)
+        at sun.security.ssl.CipherSuite$KeyExchange.isAvailable(CipherSuite.java:378)
+        at sun.security.ssl.CipherSuite.isAvailable(CipherSuite.java:194)
+        at sun.security.ssl.SSLContextImpl.getApplicableCipherSuiteList(SSLContextImpl.java:339)
+        at sun.security.ssl.SSLContextImpl.getDefaultCipherSuiteList(SSLContextImpl.java:297)
+        at sun.security.ssl.SSLSocketImpl.init(SSLSocketImpl.java:593)
+        at sun.security.ssl.SSLSocketImpl.<init>(SSLSocketImpl.java:557)
+        at sun.security.ssl.SSLSocketFactoryImpl.createSocket(SSLSocketFactoryImpl.java:109)
+        at com.sun.mail.util.SocketFetcher.startTLS(SocketFetcher.java:432) [mail-1.4.4.jar:1.4.4]
+        at com.sun.mail.smtp.SMTPTransport.startTLS(SMTPTransport.java:1875) [mail-1.4.4.jar:1.4.4]
+        at com.sun.mail.smtp.SMTPTransport.protocolConnect(SMTPTransport.java:648) [mail-1.4.4.jar:1.4.4]
+        at javax.mail.Service.connect(Service.java:295) [mail-1.4.4.jar:1.4.4]
+        at javax.mail.Service.connect(Service.java:176) [mail-1.4.4.jar:1.4.4]
+        at se.norrudden.site.utils.MailUtil.sendGmailNoSSL(MailUtil.java:65) [classes:]
+        at org.apache.jsp.admin_jsp._jspService(admin_jsp.java:367)
+        at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70) [jbossweb-7.0.13.Final.jar:]
+        at javax.servlet.http.HttpServlet.service(HttpServlet.java:847) [jboss-servlet-api_3.0_spec-1.0.0.Final.jar:1.0.0.Final]
+        at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:369) [jbossweb-7.0.13.Final.jar:]
+        at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:326) [jbossweb-7.0.13.Final.jar:]
+        at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:253) [jbossweb-7.0.13.Final.jar:]
+        at javax.servlet.http.HttpServlet.service(HttpServlet.java:847) [jboss-servlet-api_3.0_spec-1.0.0.Final.jar:1.0.0.Final]
+        at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:329) [jbossweb-7.0.13.Final.jar:]
+        at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:248) [jbossweb-7.0.13.Final.jar:]
+        at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:275) [jbossweb-7.0.13.Final.jar:]
+        at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:161) [jbossweb-7.0.13.Final.jar:]
+        at org.jboss.as.web.security.SecurityContextAssociationValve.invoke(SecurityContextAssociationValve.java:153) [jboss-as-web-7.1.1.Final.jar:7.1.1.Final]
+        at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:155) [jbossweb-7.0.13.Final.jar:]
+        at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102) [jbossweb-7.0.13.Final.jar:]
+        at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109) [jbossweb-7.0.13.Final.jar:]
+        at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:368) [jbossweb-7.0.13.Final.jar:]
+        at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:877) [jbossweb-7.0.13.Final.jar:]
+        at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:671) [jbossweb-7.0.13.Final.jar:]
+        at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:930) [jbossweb-7.0.13.Final.jar:]
+        at java.lang.Thread.run(Thread.java:748) [rt.jar:1.7.0_141]
+2017/08/28 03:28:59,894 WARN  [org.hibernate.util.JDBCExceptionReporter] (http-127.5.23.1-127.5.23.1-8080-6) SQL Error: 0, SQLState: 08S01
+2017/08/28 03:28:59,897 ERROR [org.hibernate.util.JDBCExceptionReporter] (http-127.5.23.1-127.5.23.1-8080-6) Communications link failure due to underlying exception: 
+** BEGIN NESTED EXCEPTION ** 
+java.net.SocketException
+MESSAGE: Broken pipe (Write failed)
+STACKTRACE:
+java.net.SocketException: Broken pipe (Write failed)
+        at java.net.SocketOutputStream.socketWrite0(Native Method)
+        at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:115)
+        at java.net.SocketOutputStream.write(SocketOutputStream.java:161)
+        at java.io.BufferedOutputStream.flushBuffer(BufferedOutputStream.java:82)
+        at java.io.BufferedOutputStream.flush(BufferedOutputStream.java:140)
+        at com.mysql.jdbc.MysqlIO.send(MysqlIO.java:2637)
+        at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:1554)
+        at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:1665)
+        at com.mysql.jdbc.Connection.execSQL(Connection.java:3176)
+        at com.mysql.jdbc.PreparedStatement.executeInternal(PreparedStatement.java:1153)
+        at com.mysql.jdbc.PreparedStatement.executeQuery(PreparedStatement.java:1266)
+        at org.hibernate.jdbc.AbstractBatcher.getResultSet(AbstractBatcher.java:186)
+        at org.hibernate.loader.Loader.getResultSet(Loader.java:1787)
+        at org.hibernate.loader.Loader.doQuery(Loader.java:674)
+        at org.hibernate.loader.Loader.doQueryAndInitializeNonLazyCollections(Loader.java:236)
+        at org.hibernate.loader.Loader.doList(Loader.java:2213)
+        at org.hibernate.loader.Loader.listIgnoreQueryCache(Loader.java:2104)
+        at org.hibernate.loader.Loader.list(Loader.java:2099)
+        at org.hibernate.loader.hql.QueryLoader.list(QueryLoader.java:378)
+        at org.hibernate.hql.ast.QueryTranslatorImpl.list(QueryTranslatorImpl.java:338)
+        at org.hibernate.engine.query.HQLQueryPlan.performList(HQLQueryPlan.java:172)
+        at org.hibernate.impl.SessionImpl.list(SessionImpl.java:1121)
+        at org.hibernate.impl.QueryImpl.list(QueryImpl.java:79)
+        at se.norrudden.site.hibernate.HibernateUtil.executeQuery(HibernateUtil.java:76)
+        at org.apache.jsp.imagelist_jsp._jspService(imagelist_jsp.java:80)
+        at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+        at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+        at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:369)
+        at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:326)
+        at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:253)
+        at javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+        at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:329)
+        at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:248)
+        at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:275)
+        at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:161)
+        at org.jboss.as.web.security.SecurityContextAssociationValve.invoke(SecurityContextAssociationValve.java:153)
+        at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:155)
+        at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+        at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+        at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:368)
+        at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:877)
+        at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:671)
+        at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:930)
+        at java.lang.Thread.run(Thread.java:748)
+** END NESTED EXCEPTION **
+Last packet sent to the server was 4 ms ago.
+2017/08/28 03:28:59,902 INFO  [org.hibernate.cfg.Configuration] (http-127.5.23.1-127.5.23.1-8080-6) configuring from resource: /hibernate.cfg.xml
+2017/08/28 03:28:59,903 INFO  [org.hibernate.cfg.Configuration] (http-127.5.23.1-127.5.23.1-8080-6) Configuration resource: /hibernate.cfg.xml
+2017/08/28 03:29:00,001 INFO  [org.hibernate.cfg.Configuration] (http-127.5.23.1-127.5.23.1-8080-6) Configured SessionFactory: null
+2017/08/28 03:29:00,007 INFO  [org.hibernate.cfg.AnnotationBinder] (http-127.5.23.1-127.5.23.1-8080-6) Binding entity from annotated class: se.norrudden.site.model.Feed
+
+

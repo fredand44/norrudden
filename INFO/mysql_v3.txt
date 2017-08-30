@@ -1,0 +1,43 @@
+fredrik@fredrik-HP-Compaq-6910p ~ $ oc new-app mysql-persistent -p MYSQL_USER=adminHgaza73 -p MYSQL_PASSWORD=PSy9ze4wsIee -p MYSQL_DATABASE=jbossas
+--> Deploying template "openshift/mysql-persistent" to project norrudden
+
+     MySQL (Persistent)
+     ---------
+     MySQL database service, with persistent storage. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/mysql-container/blob/master/5.7/README.md.
+     
+     NOTE: Scaling to more than one replica is not supported. You must have persistent volumes available in your cluster to use this template.
+
+     The following service(s) have been created in your project: mysql.
+     
+            Username: adminHgaza73
+            Password: PSy9ze4wsIee
+       Database Name: jbossas
+      Connection URL: mysql://mysql:3306/
+     
+     For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/mysql-container/blob/master/5.7/README.md.
+
+
+     * With parameters:
+        * Memory Limit=512Mi
+        * Namespace=openshift
+        * Database Service Name=mysql
+        * MySQL Connection Username=adminHgaza73
+        * MySQL Connection Password=PSy9ze4wsIee
+        * MySQL root user Password=CqABo3S8l0wqw7Sx # generated
+        * MySQL Database Name=jbossas
+        * Volume Capacity=1Gi
+        * Version of MySQL Image=5.7
+
+--> Creating resources ...
+    secret "mysql" created
+    service "mysql" created
+    persistentvolumeclaim "mysql" created
+    deploymentconfig "mysql" created
+--> Success
+    Run 'oc status' to view your app.
+fredrik@fredrik-HP-Compaq-6910p ~ $ 
+
+
+SELECT Host, User, Password FROM mysql.user;
+SELECT PASSWORD(Password) FROM mysql.user;
+
