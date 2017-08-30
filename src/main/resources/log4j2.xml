@@ -18,8 +18,10 @@
     
   </Appenders>
   <Loggers>
-    <Root level="info"> 
+    <Root level="info">
+    <!-- 
       <AppenderRef ref="databaseAppender"/>
+      -->
     </Root>
   </Loggers>
 </Configuration>
