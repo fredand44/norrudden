@@ -17,7 +17,6 @@ String message = "";
 
 try
 {
-	int test = 10;
 	String[] parameterNames = {};
 	Object[] parameterValues = {};
 	String queryString = "SELECT f FROM Feed f WHERE f.id IN (SELECT MAX(f2.id) FROM Feed f2)";
