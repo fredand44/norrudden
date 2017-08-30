@@ -2,6 +2,8 @@
 <%@page import="se.norrudden.site.model.SystemParameter"%>
 <%@page import="org.apache.logging.log4j.LogManager"%>
 <%@page import="org.apache.logging.log4j.Logger"%>
+<%@page import="java.io.StringWriter"%>
+<%@page import="java.io.PrintWriter"%>
 
 <%!
 	static final Logger logger = LogManager.getLogger("error.jsp");
@@ -10,6 +12,13 @@
 <%
 	String EPOST = HibernateUtil.getSystemParameter( SystemParameter.EMAIL_ADDRESS );
 	Exception error = request.getAttribute("error") == null ? new Exception("Felet uppstod på servern!") : (Exception)request.getAttribute("error");
+	
+
+	StringWriter sw = new StringWriter();
+	PrintWriter pw = new PrintWriter(sw);
+	error.printStackTrace(pw);
+	String sStackTrace = sw.toString(); 
+	
 	
 	try
 	{
@@ -38,6 +47,8 @@
 					Fel:  
 					<br/>
 					<%=error%>
+					<br/>
+					<textarea rows="20" cols="100"><%=sStackTrace %></textarea>
 					<br/>
 					<br/>
 					Har du möjlighet får du gärna rapportera detta fel till styrelsen på epost:
