@@ -11,13 +11,13 @@
 
 <%
 	String EPOST = HibernateUtil.getSystemParameter( SystemParameter.EMAIL_ADDRESS );
-	Exception error = request.getAttribute("error") == null ? new Exception("Felet uppstod på servern!") : (Exception)request.getAttribute("error");
+	Throwable error = request.getAttribute("error") == null ? new Exception("Felet uppstod på servern!") : (Throwable)request.getAttribute("error");
 	
 
 	StringWriter sw = new StringWriter();
 	PrintWriter pw = new PrintWriter(sw);
 	error.printStackTrace(pw);
-	String sStackTrace = sw.toString(); 
+	String sStackTrace = sw.toString (); 
 	
 	
 	try

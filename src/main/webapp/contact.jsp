@@ -55,7 +55,21 @@ static final Logger logger = LogManager.getLogger("contact.jsp");
 				stringBuffer.append( message );
 				
 				String to =  HibernateUtil.getSystemParameter( SystemParameter.EMAIL_ADDRESS ) ;
-				//MailUtil.sendGmailNoSSL(to, "Meddelande från hemsidan", stringBuffer.toString());
+				try
+				{
+					MailUtil.sendGmailNoSSL(to, "Meddelande från hemsidan", stringBuffer.toString());
+				}
+				catch(Throwable t)
+				{
+					sender = null;
+					email = "";
+					telephone = "";
+					message = null;
+					submitMeddelande = null;
+					
+					request.setAttribute("error", t);
+					pageContext.forward("error.jsp");
+				}
 			
 				sender = "";
 				email = "";
@@ -75,17 +89,6 @@ static final Logger logger = LogManager.getLogger("contact.jsp");
 		}
 	}
 	catch(Exception e)
-	{
-		sender = null;
-		email = "";
-		telephone = "";
-		message = null;
-		submitMeddelande = null;
-		
-		request.setAttribute("error", e);
-		pageContext.forward("error.jsp");
-	}
-	catch(Error e)
 	{
 		sender = null;
 		email = "";
