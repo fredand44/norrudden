@@ -19,7 +19,9 @@
   </Appenders>
   <Loggers>
     <Root level="info">
+    <!-- 
       <AppenderRef ref="databaseAppender"/>
+      -->
     </Root>
   </Loggers>
 </Configuration>
