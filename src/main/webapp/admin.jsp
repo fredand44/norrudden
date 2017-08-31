@@ -204,6 +204,7 @@ static final Logger logger = LogManager.getLogger("admin.jsp");
 						
 						//Save thumb
 						Thumb thumb = new Thumb();
+						thumb.setId( image.getId() );
 						thumb.setDescription( descriptionImage );
 						Timestamp pubdate = new Timestamp( System.currentTimeMillis());
 						thumb.setPubDate( pubdate );
