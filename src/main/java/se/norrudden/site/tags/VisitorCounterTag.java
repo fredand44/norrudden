@@ -143,7 +143,7 @@ public class VisitorCounterTag extends SimpleTagSupport
 				logRow = logRow.substring(0, 97) + "...";
 			}
 
-			logger.info(logRow);
+			logger.debug(logRow);
 		}
 	 }
 
@@ -154,7 +154,7 @@ public class VisitorCounterTag extends SimpleTagSupport
 		String userAgent =  httpServletRequest.getHeader("user-agent");
 		String ip =  httpServletRequest.getHeader("x-client-ip");
 
-		if( "*/*".equals( accept ) && "Ruby".equals( userAgent ) )
+		if( ( "*/*".equals( accept ) && "Ruby".equals( userAgent ) ) || "Go-http-client/1.1".equals( userAgent ) )
 		{
 			serverBot = true;
 			logger.info("ServerBot: " + ip + " (no visitor counting)");
