@@ -157,7 +157,7 @@ public class VisitorCounterTag extends SimpleTagSupport
 		if( ( "*/*".equals( accept ) && "Ruby".equals( userAgent ) ) || "Go-http-client/1.1".equals( userAgent ) )
 		{
 			serverBot = true;
-			logger.info("ServerBot: " + ip + " (no visitor counting)");
+			logger.debug("ServerBot: " + ip + " (no visitor counting)");
 		}
 
 		return serverBot;
