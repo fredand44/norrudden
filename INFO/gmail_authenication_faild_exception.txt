@@ -1,0 +1,49 @@
+javax.mail.AuthenticationFailedException: 534-5.7.14 <https://accounts.google.com/signin/continue?sarp=1&scc=1&plt=AKgnsbuO
+534-5.7.14 ZDUjHKi9_zQ7nCvl9LqMYfd2leqLKHk2g5ATFnpOynSDuYM-kySHyVr-hdGYsWIsDNEWLp
+534-5.7.14 pni4azp-FdyokwIkMrl4i1vwo19GRgkVGg22fw4_PKYlRJc6ADawgGORqFmWbXx1KaVvCX
+534-5.7.14 Jx_clppaBl1Jy3-Zg5l9lx1fPOEw8aoZkXBPrJ-ExAZ7P_VtRPsb7h-gC1UTm5TSUqHYN4
+534-5.7.14 4qKEzCtU9mX_bDhbkjvcYrJQZU8y4> Please log in via your web browser and
+534-5.7.14 then try again.
+534-5.7.14  Learn more at
+534 5.7.14  https://support.google.com/mail/answer/78754 x26sm15978817pgc.77 - gsmtp
+
+	at com.sun.mail.smtp.SMTPTransport$Authenticator.authenticate(SMTPTransport.java:826)
+	at com.sun.mail.smtp.SMTPTransport.authenticate(SMTPTransport.java:761)
+	at com.sun.mail.smtp.SMTPTransport.protocolConnect(SMTPTransport.java:685)
+	at javax.mail.Service.connect(Service.java:317)
+	at javax.mail.Service.connect(Service.java:176)
+	at se.norrudden.site.utils.MailUtil.sendGmailNoSSL(MailUtil.java:65)
+	at org.apache.jsp.contact_jsp._jspService(contact_jsp.java:190)
+	at org.apache.jasper.runtime.HttpJspBase.service(Unknown Source)
+	at javax.servlet.http.HttpServlet.service(Unknown Source)
+	at org.apache.jasper.servlet.JspServletWrapper.service(Unknown Source)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(Unknown Source)
+	at org.apache.jasper.servlet.JspServlet.service(Unknown Source)
+	at javax.servlet.http.HttpServlet.service(Unknown Source)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(Unknown Source)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(Unknown Source)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(Unknown Source)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(Unknown Source)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(Unknown Source)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(Unknown Source)
+	at org.apache.catalina.core.StandardContextValve.invoke(Unknown Source)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(Unknown Source)
+	at org.apache.catalina.core.StandardHostValve.invoke(Unknown Source)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(Unknown Source)
+	at org.apache.catalina.valves.AccessLogValve.invoke(Unknown Source)
+	at org.apache.catalina.core.StandardEngineValve.invoke(Unknown Source)
+	at org.apache.catalina.connector.CoyoteAdapter.service(Unknown Source)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(Unknown Source)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(Unknown Source)
+	at org.apache.tomcat.util.net.AprEndpoint$SocketWithOptionsProcessor.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+Epostadressen du angav fungerar inte pga: 534-5.7.14 Please log in via your web browser and 534-5.7.14 then try again. 534-5.7.14 Learn more at 534 5.7.14 https://support.google.com/mail/answer/78754 82sm12667474pgb.86 - gsmtp 
+
+Eventuell lösning:
+https://serverfault.com/questions/635139/how-to-fix-send-mail-authorization-failed-534-5-7-14
+

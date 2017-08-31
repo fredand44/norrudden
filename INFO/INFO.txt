@@ -129,7 +129,6 @@ update SystemParameters set value='norrudden.vagforening@gmail.com' where id = 1
 
 ÅÄÖ i mail blir ?
 Loggning
-Ny Thumbs länkar till fel image id
 
 ---------------------------GAMLA EXCEPTIONS-----------------------------------------
 
