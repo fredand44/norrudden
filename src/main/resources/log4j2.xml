@@ -7,7 +7,8 @@
     </Console>
     
    	<JDBC name="databaseAppender" tableName="jbossas.Logs">
-      <ConnectionFactory class="se.norrudden.site.log.ConnectionFactory" method="getDatabaseConnection" />
+   	  <DataSource jndiName="java:/comp/env/jdbc/NorruddenDB" />
+     <!-- <ConnectionFactory class="se.norrudden.site.log.ConnectionFactory" method="getDatabaseConnection" /> -->
       <Column name="dated" isEventTimestamp="true" isUnicode="false"/>
       <Column name="level" pattern="%level" isUnicode="false"/>
       <Column name="logger" pattern="%logger" isUnicode="false"/>

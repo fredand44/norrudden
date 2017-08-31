@@ -1,0 +1,15 @@
+<Context path="/NorruddenWebLogging" privileged="true"
+	antiResourceLocking="false" antiJARLocking="false">
+	<Resource 
+		name="jdbc/NorruddenDB" 
+		auth="Container"
+		factory="org.apache.tomcat.jdbc.pool.DataSourceFactory" 
+		type="javax.sql.DataSource"
+		maxActive="100" 
+		maxIdle="30" 
+		maxWait="10000" 
+		username="adminHgaza73" 
+		password="PSy9ze4wsIee"
+		driverClassName="com.mysql.jdbc.Driver" 
+		url="jdbc:mysql://mysql:3306/jbossas" />
+</Context>
