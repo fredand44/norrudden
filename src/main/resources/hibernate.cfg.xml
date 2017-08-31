@@ -7,7 +7,8 @@
         <!-- Database connection settings -->  
         
         
-        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>  
+        <!-- <property name="connection.driver_class">com.mysql.jdbc.Driver</property>-->
+        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>  
         
           
         <!--<property name="connection.url">jdbc:mysql://127.5.23.2:3306/jbossas?autoReconnect=true</property>-->
