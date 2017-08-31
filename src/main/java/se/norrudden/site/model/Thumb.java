@@ -15,7 +15,6 @@ import javax.persistence.Table;
 public class Thumb
 {
 	@Id
-	@GeneratedValue
 	private Integer id;
 	private String description;
 	private byte[] file;

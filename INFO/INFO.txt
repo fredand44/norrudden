@@ -125,8 +125,13 @@ update SystemParameters set value='norrudden.vagforening@gmail.com' where id = 1
 
 	https://github.com/jboss-openshift/openshift-quickstarts.git
 
+------------------------------BUGGAR---------------------------------------
 
----------------------------EXCEPTIONS-----------------------------------------
+ÅÄÖ i mail blir ?
+Loggning
+Ny Thumbs länkar till fel image id
+
+---------------------------GAMLA EXCEPTIONS-----------------------------------------
 
 2017/08/26 09:55:13,007 INFO  [org.hibernate.impl.SessionFactoryObjectFactory] (http-127.5.23.1-127.5.23.1-8080-6) Not binding factory to JNDI, no JNDI name c
 onfigured
