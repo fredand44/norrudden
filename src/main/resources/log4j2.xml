@@ -19,12 +19,15 @@
     
   </Appenders>
   <Loggers>
-    <Root level="info">
-      <AppenderRef ref="databaseAppender"/>
-    </Root>
+  
+  		<Root level="INFO">
+			<AppenderRef ref="Console" />
+		</Root>
+		
+		<logger name="se" level="INFO" additivity="false">
+			<AppenderRef ref="databaseAppender" />
+		</logger>
+		
   </Loggers>
   
-  
-
-   
 </Configuration>
