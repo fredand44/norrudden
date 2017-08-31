@@ -143,7 +143,7 @@ public class VisitorCounterTag extends SimpleTagSupport
 				logRow = logRow.substring(0, 97) + "...";
 			}
 
-			logger.debug(logRow);
+			logger.info(logRow);
 		}
 	 }
 
